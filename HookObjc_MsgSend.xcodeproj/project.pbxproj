@@ -15,6 +15,8 @@
 		093C8D80224A05AC0089D0CF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D7F224A05AC0089D0CF /* main.m */; };
 		093C8D8A224A05AC0089D0CF /* HookObjc_MsgSendTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D89224A05AC0089D0CF /* HookObjc_MsgSendTests.m */; };
 		093C8D95224A05AC0089D0CF /* HookObjc_MsgSendUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D94224A05AC0089D0CF /* HookObjc_MsgSendUITests.m */; };
+		093C8DA5224A06270089D0CF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DA3224A06270089D0CF /* fishhook.c */; };
+		093C8DA8224A079E0089D0CF /* ZYMethodTraceCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DA7224A079E0089D0CF /* ZYMethodTraceCore.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		093C8D90224A05AC0089D0CF /* HookObjc_MsgSendUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HookObjc_MsgSendUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		093C8D94224A05AC0089D0CF /* HookObjc_MsgSendUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HookObjc_MsgSendUITests.m; sourceTree = "<group>"; };
 		093C8D96224A05AC0089D0CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		093C8DA3224A06270089D0CF /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
+		093C8DA4224A06270089D0CF /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
+		093C8DA6224A079E0089D0CF /* ZYMethodTraceCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMethodTraceCore.h; sourceTree = "<group>"; };
+		093C8DA7224A079E0089D0CF /* ZYMethodTraceCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodTraceCore.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 		093C8D6F224A05AB0089D0CF /* HookObjc_MsgSend */ = {
 			isa = PBXGroup;
 			children = (
+				093C8DA2224A05DD0089D0CF /* RecordMethodTime */,
 				093C8D70224A05AB0089D0CF /* AppDelegate.h */,
 				093C8D71224A05AB0089D0CF /* AppDelegate.m */,
 				093C8D73224A05AB0089D0CF /* ViewController.h */,
@@ -130,6 +137,17 @@
 				093C8D96224A05AC0089D0CF /* Info.plist */,
 			);
 			path = HookObjc_MsgSendUITests;
+			sourceTree = "<group>";
+		};
+		093C8DA2224A05DD0089D0CF /* RecordMethodTime */ = {
+			isa = PBXGroup;
+			children = (
+				093C8DA4224A06270089D0CF /* fishhook.h */,
+				093C8DA3224A06270089D0CF /* fishhook.c */,
+				093C8DA6224A079E0089D0CF /* ZYMethodTraceCore.h */,
+				093C8DA7224A079E0089D0CF /* ZYMethodTraceCore.mm */,
+			);
+			path = RecordMethodTime;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -194,6 +212,7 @@
 		093C8D65224A05AB0089D0CF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ZY;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = wzp;
 				TargetAttributes = {
@@ -263,7 +282,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				093C8D75224A05AB0089D0CF /* ViewController.m in Sources */,
+				093C8DA8224A079E0089D0CF /* ZYMethodTraceCore.mm in Sources */,
 				093C8D80224A05AC0089D0CF /* main.m in Sources */,
+				093C8DA5224A06270089D0CF /* fishhook.c in Sources */,
 				093C8D72224A05AB0089D0CF /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

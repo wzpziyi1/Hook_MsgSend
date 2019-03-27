@@ -6,12 +6,22 @@
 //  Copyright © 2019 wzp. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef ZYMethodTraceCore_H
+#define ZYMethodTraceCore_H
 
-NS_ASSUME_NONNULL_BEGIN
+#include <iostream>
+#include <objc/objc.h>
+using namespace std;
 
-@interface ZYMethodTraceCore : NSObject
+typedef struct {
+    id obj;
+    SEL cmd;
+    uint32_t time;
+    uint32_t index;
+}CallRecord;
 
-@end
-
-NS_ASSUME_NONNULL_END
+void startMethodTrace();
+void stopMethodTrace();
+void setMaxDepth(int depth);
+void setRecordMinInterval(int interval);   //interval毫秒
+#endif
