@@ -16,7 +16,9 @@
 		093C8D8A224A05AC0089D0CF /* HookObjc_MsgSendTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D89224A05AC0089D0CF /* HookObjc_MsgSendTests.m */; };
 		093C8D95224A05AC0089D0CF /* HookObjc_MsgSendUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D94224A05AC0089D0CF /* HookObjc_MsgSendUITests.m */; };
 		093C8DA5224A06270089D0CF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DA3224A06270089D0CF /* fishhook.c */; };
-		093C8DA8224A079E0089D0CF /* ZYMethodTraceCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DA7224A079E0089D0CF /* ZYMethodTraceCore.mm */; };
+		093C8DB1224B7D560089D0CF /* ZYMethodTraceCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB0224B7D560089D0CF /* ZYMethodTraceCore.mm */; };
+		093C8DB4224B7D6E0089D0CF /* ZYMethodRecordManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */; };
+		093C8DB7224B7EA30089D0CF /* ZYMethodRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,8 +57,12 @@
 		093C8D96224A05AC0089D0CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		093C8DA3224A06270089D0CF /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		093C8DA4224A06270089D0CF /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
-		093C8DA6224A079E0089D0CF /* ZYMethodTraceCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMethodTraceCore.h; sourceTree = "<group>"; };
-		093C8DA7224A079E0089D0CF /* ZYMethodTraceCore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodTraceCore.mm; sourceTree = "<group>"; };
+		093C8DAF224B7D560089D0CF /* ZYMethodTraceCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMethodTraceCore.h; sourceTree = "<group>"; };
+		093C8DB0224B7D560089D0CF /* ZYMethodTraceCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodTraceCore.mm; sourceTree = "<group>"; };
+		093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodRecordManager.mm; sourceTree = "<group>"; };
+		093C8DB3224B7D6E0089D0CF /* ZYMethodRecordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMethodRecordManager.h; sourceTree = "<group>"; };
+		093C8DB5224B7EA30089D0CF /* ZYMethodRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMethodRecordModel.h; sourceTree = "<group>"; };
+		093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMethodRecordModel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,8 +150,12 @@
 			children = (
 				093C8DA4224A06270089D0CF /* fishhook.h */,
 				093C8DA3224A06270089D0CF /* fishhook.c */,
-				093C8DA6224A079E0089D0CF /* ZYMethodTraceCore.h */,
-				093C8DA7224A079E0089D0CF /* ZYMethodTraceCore.mm */,
+				093C8DB3224B7D6E0089D0CF /* ZYMethodRecordManager.h */,
+				093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */,
+				093C8DAF224B7D560089D0CF /* ZYMethodTraceCore.h */,
+				093C8DB0224B7D560089D0CF /* ZYMethodTraceCore.mm */,
+				093C8DB5224B7EA30089D0CF /* ZYMethodRecordModel.h */,
+				093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */,
 			);
 			path = RecordMethodTime;
 			sourceTree = "<group>";
@@ -281,8 +291,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				093C8DB4224B7D6E0089D0CF /* ZYMethodRecordManager.mm in Sources */,
+				093C8DB7224B7EA30089D0CF /* ZYMethodRecordModel.m in Sources */,
 				093C8D75224A05AB0089D0CF /* ViewController.m in Sources */,
-				093C8DA8224A079E0089D0CF /* ZYMethodTraceCore.mm in Sources */,
+				093C8DB1224B7D560089D0CF /* ZYMethodTraceCore.mm in Sources */,
 				093C8D80224A05AC0089D0CF /* main.m in Sources */,
 				093C8DA5224A06270089D0CF /* fishhook.c in Sources */,
 				093C8D72224A05AB0089D0CF /* AppDelegate.m in Sources */,

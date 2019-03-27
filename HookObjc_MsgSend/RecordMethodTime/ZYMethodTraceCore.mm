@@ -14,6 +14,7 @@
 #include <dispatch/dispatch.h>
 #include <pthread.h>
 #include <sys/time.h>
+#import <objc/runtime.h>
 
 
 static CallRecord *_recordRoot = NULL;
@@ -47,7 +48,7 @@ void push_call_record(id obj, SEL cmd) {
         _recordRoot = (CallRecord *)realloc((void *)_recordRoot, _recordAllocCount * sizeof(CallRecord));
     }
     CallRecord *curNode = &_recordRoot[_curRecordCount];
-    curNode->obj = obj;
+    curNode->cls = object_getClass(obj);
     curNode->cmd = cmd;
     curNode->index = _curRecordCount++;
     curNode->time = get_current_time();
@@ -77,7 +78,7 @@ void pop_call_record() {
             _logRoot = (CallRecord *)realloc(_logRoot, _logAllocCount * sizeof(CallRecord));
         }
         CallRecord *logNode = (CallRecord *)&_logRoot[_curLogCount++];
-        logNode->obj = preNode->obj;
+        logNode->cls = preNode->cls;
         logNode->cmd = preNode->cmd;
         logNode->index = preNode->index;
         logNode->time = preNode->time;

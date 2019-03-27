@@ -14,7 +14,7 @@
 using namespace std;
 
 typedef struct {
-    id obj;
+    Class cls;
     SEL cmd;
     uint32_t time;
     uint32_t index;
@@ -23,5 +23,5 @@ typedef struct {
 void startMethodTrace();
 void stopMethodTrace();
 void setMaxDepth(int depth);
-void setRecordMinInterval(int interval);   //interval毫秒
+void setRecordMinInterval(int interval);   //毫秒
 #endif
