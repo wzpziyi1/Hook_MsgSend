@@ -9,5 +9,7 @@
 #import "ZYMethodRecordModel.h"
 
 @implementation ZYMethodRecordModel
-
+- (void)descInfo {
+//    NSLog(@"")
+}
 @end

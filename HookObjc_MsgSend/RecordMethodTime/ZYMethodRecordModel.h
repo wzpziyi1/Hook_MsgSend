@@ -17,4 +17,6 @@
 @property (nonatomic, assign) NSUInteger timeCost;      //耗时
 
 @property (nonatomic, strong) NSMutableArray<ZYMethodRecordModel *> *subRecordModelArr;
+
+- (void)descInfo;
 @end

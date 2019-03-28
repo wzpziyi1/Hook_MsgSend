@@ -7,8 +7,10 @@
 //
 
 #import "ZYMethodRecordManager.h"
-#import "ZYMethodTraceCore.h"
+#import "ZYMethodTraceCore.hpp"
 #import "ZYMethodRecordModel.h"
+#import <objc/runtime.h>
+#import "SMCallTraceCore.h"
 
 @interface ZYMethodRecordManager()
 {
@@ -18,6 +20,7 @@
 @end
 
 @implementation ZYMethodRecordManager
+
 + (instancetype)sharedManager {
     static id _instance = nil;
     static dispatch_once_t onceToken;
@@ -39,6 +42,7 @@
     setMaxDepth((uint32_t)_maxDepth);
     setRecordMinInterval((uint32_t)_minCost);
     startMethodTrace();
+//    smCallTraceStart();
 }
 
 - (void)startRecord:(NSUInteger)maxDepth minTimeCost:(NSUInteger)cost {
@@ -52,7 +56,25 @@
 }
 
 - (void)save {
-    
+    uint32_t depth = 0;
+    CallRecord *logHeader = getLogRootInfo(&depth);
+    if (logHeader == NULL) {
+        return;
+    }
+    ZYMethodRecordModel *model = [[ZYMethodRecordModel alloc] init];
+    for (int i = depth - 1; i >= 0; i--) {
+        CallRecord *record = &logHeader[i];
+        model.className = NSStringFromClass(record->cls);
+        model.methodName = NSStringFromSelector(record->cmd);
+        model.isClassMethod = class_isMetaClass(record->cls);
+        model.callDepth = (NSUInteger)record->index;
+        model.timeCost = (NSUInteger)record->time;
+        NSLog(@"%lu||||%@--%@--%lu", (unsigned long)model.timeCost, model.className, model.methodName, model.callDepth);
+    }
 }
 
+
+- (void)stopRecordAndClean {
+    stopRecordAndCleanLogMemory();
+}
 @end

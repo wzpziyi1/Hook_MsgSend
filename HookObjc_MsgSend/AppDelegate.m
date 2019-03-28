@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "ZYMethodRecordManager.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[ZYMethodRecordManager sharedManager] startRecord:3 minTimeCost:0];
     // Override point for customization after application launch.
     return YES;
 }

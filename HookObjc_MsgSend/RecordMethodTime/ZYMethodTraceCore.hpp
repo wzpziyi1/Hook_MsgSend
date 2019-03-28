@@ -1,13 +1,13 @@
 //
-//  ZYMethodTraceCore.h
+//  ZYMethodTraceCore.hpp
 //  HookObjc_MsgSend
 //
-//  Created by wzp on 2019/3/26.
+//  Created by wzp on 2019/3/28.
 //  Copyright © 2019 wzp. All rights reserved.
 //
 
-#ifndef ZYMethodTraceCore_H
-#define ZYMethodTraceCore_H
+#ifndef ZYMethodTraceCore_hpp
+#define ZYMethodTraceCore_hpp
 
 #include <iostream>
 #include <objc/objc.h>
@@ -27,4 +27,4 @@ void setRecordMinInterval(uint32_t interval);   //毫秒
 
 CallRecord *getLogRootInfo(uint32_t *depth);
 void stopRecordAndCleanLogMemory();
-#endif
+#endif /* ZYMethodTraceCore_hpp */

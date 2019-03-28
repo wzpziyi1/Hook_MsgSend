@@ -22,5 +22,5 @@
 
 - (void)save;
 
-- (void)stopSaveAndClean;
+- (void)stopRecordAndClean;
 @end

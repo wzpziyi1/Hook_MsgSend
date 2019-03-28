@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0936DF6B224CBDD4002B38DA /* ZYMethodTraceCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0936DF69224CBDD4002B38DA /* ZYMethodTraceCore.cpp */; };
+		0936DF77224CD252002B38DA /* SMCallTraceCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0936DF75224CD252002B38DA /* SMCallTraceCore.cpp */; };
 		093C8D72224A05AB0089D0CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D71224A05AB0089D0CF /* AppDelegate.m */; };
 		093C8D75224A05AB0089D0CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D74224A05AB0089D0CF /* ViewController.m */; };
 		093C8D78224A05AB0089D0CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 093C8D76224A05AB0089D0CF /* Main.storyboard */; };
@@ -16,7 +18,6 @@
 		093C8D8A224A05AC0089D0CF /* HookObjc_MsgSendTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D89224A05AC0089D0CF /* HookObjc_MsgSendTests.m */; };
 		093C8D95224A05AC0089D0CF /* HookObjc_MsgSendUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D94224A05AC0089D0CF /* HookObjc_MsgSendUITests.m */; };
 		093C8DA5224A06270089D0CF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DA3224A06270089D0CF /* fishhook.c */; };
-		093C8DB1224B7D560089D0CF /* ZYMethodTraceCore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB0224B7D560089D0CF /* ZYMethodTraceCore.mm */; };
 		093C8DB4224B7D6E0089D0CF /* ZYMethodRecordManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */; };
 		093C8DB7224B7EA30089D0CF /* ZYMethodRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */; };
 /* End PBXBuildFile section */
@@ -39,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0936DF69224CBDD4002B38DA /* ZYMethodTraceCore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ZYMethodTraceCore.cpp; sourceTree = "<group>"; };
+		0936DF6A224CBDD4002B38DA /* ZYMethodTraceCore.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ZYMethodTraceCore.hpp; sourceTree = "<group>"; };
+		0936DF75224CD252002B38DA /* SMCallTraceCore.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SMCallTraceCore.cpp; sourceTree = "<group>"; };
+		0936DF76224CD252002B38DA /* SMCallTraceCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMCallTraceCore.h; sourceTree = "<group>"; };
 		093C8D6D224A05AB0089D0CF /* HookObjc_MsgSend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HookObjc_MsgSend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		093C8D70224A05AB0089D0CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		093C8D71224A05AB0089D0CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -57,8 +62,6 @@
 		093C8D96224A05AC0089D0CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		093C8DA3224A06270089D0CF /* fishhook.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = fishhook.c; sourceTree = "<group>"; };
 		093C8DA4224A06270089D0CF /* fishhook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = fishhook.h; sourceTree = "<group>"; };
-		093C8DAF224B7D560089D0CF /* ZYMethodTraceCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMethodTraceCore.h; sourceTree = "<group>"; };
-		093C8DB0224B7D560089D0CF /* ZYMethodTraceCore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodTraceCore.mm; sourceTree = "<group>"; };
 		093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodRecordManager.mm; sourceTree = "<group>"; };
 		093C8DB3224B7D6E0089D0CF /* ZYMethodRecordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMethodRecordManager.h; sourceTree = "<group>"; };
 		093C8DB5224B7EA30089D0CF /* ZYMethodRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMethodRecordModel.h; sourceTree = "<group>"; };
@@ -148,14 +151,16 @@
 		093C8DA2224A05DD0089D0CF /* RecordMethodTime */ = {
 			isa = PBXGroup;
 			children = (
+				0936DF75224CD252002B38DA /* SMCallTraceCore.cpp */,
+				0936DF76224CD252002B38DA /* SMCallTraceCore.h */,
 				093C8DA4224A06270089D0CF /* fishhook.h */,
 				093C8DA3224A06270089D0CF /* fishhook.c */,
 				093C8DB3224B7D6E0089D0CF /* ZYMethodRecordManager.h */,
 				093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */,
-				093C8DAF224B7D560089D0CF /* ZYMethodTraceCore.h */,
-				093C8DB0224B7D560089D0CF /* ZYMethodTraceCore.mm */,
 				093C8DB5224B7EA30089D0CF /* ZYMethodRecordModel.h */,
 				093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */,
+				0936DF6A224CBDD4002B38DA /* ZYMethodTraceCore.hpp */,
+				0936DF69224CBDD4002B38DA /* ZYMethodTraceCore.cpp */,
 			);
 			path = RecordMethodTime;
 			sourceTree = "<group>";
@@ -293,10 +298,11 @@
 			files = (
 				093C8DB4224B7D6E0089D0CF /* ZYMethodRecordManager.mm in Sources */,
 				093C8DB7224B7EA30089D0CF /* ZYMethodRecordModel.m in Sources */,
+				0936DF6B224CBDD4002B38DA /* ZYMethodTraceCore.cpp in Sources */,
 				093C8D75224A05AB0089D0CF /* ViewController.m in Sources */,
-				093C8DB1224B7D560089D0CF /* ZYMethodTraceCore.mm in Sources */,
 				093C8D80224A05AC0089D0CF /* main.m in Sources */,
 				093C8DA5224A06270089D0CF /* fishhook.c in Sources */,
+				0936DF77224CD252002B38DA /* SMCallTraceCore.cpp in Sources */,
 				093C8D72224A05AB0089D0CF /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
