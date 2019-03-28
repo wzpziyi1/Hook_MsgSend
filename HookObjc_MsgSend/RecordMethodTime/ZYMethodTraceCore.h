@@ -22,6 +22,9 @@ typedef struct {
 
 void startMethodTrace();
 void stopMethodTrace();
-void setMaxDepth(int depth);
-void setRecordMinInterval(int interval);   //毫秒
+void setMaxDepth(uint32_t depth);
+void setRecordMinInterval(uint32_t interval);   //毫秒
+
+CallRecord *getLogRootInfo(uint32_t *depth);
+void stopRecordAndCleanLogMemory();
 #endif

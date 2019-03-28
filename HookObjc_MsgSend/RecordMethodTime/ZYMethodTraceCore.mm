@@ -41,6 +41,8 @@ inline uint32_t get_current_time() {
 
 void push_call_record(id obj, SEL cmd) {
     if (_recordRoot == NULL) {
+        _recordAllocCount = 100;
+        _curRecordCount = 0;
         _recordRoot = (CallRecord *)malloc(sizeof(CallRecord) * _recordAllocCount);
     }
     else if (_curRecordCount >= _recordAllocCount) {
@@ -71,6 +73,8 @@ void pop_call_record() {
             return;
         }
         if (_logRoot == NULL) {
+            _logAllocCount = 100;
+            _curLogCount = 0;
             _logRoot = (CallRecord *)malloc(sizeof(CallRecord) * _logAllocCount);
         }
         else if (_logAllocCount <= _curLogCount) {
@@ -96,7 +100,7 @@ void *before_hook_objc_msgSend(id obj, SEL cmd) {
 
 void after_hook_objc_msgSend(id obj, SEL cmd) {
     if (pthread_main_np()) {
-        
+        pop_call_record();
     }
 }
 
@@ -198,16 +202,52 @@ void startMethodTrace() {
     });
 }
 
-void setMaxDepth(int depth) {
+void stopMethodTrace() {
+    _isRecording = false;
+}
+
+void setMaxDepth(uint32_t depth) {
     _maxCallDepth = (depth <= 0) ? 0 : depth;
 }
-void setRecordMinInterval(int interval) {
-    _minTimeCost = (interval * 1000 < 0) ? 0 : interval * 1000;
+void setRecordMinInterval(uint32_t interval) {
+    _minTimeCost = (interval * 1000 <= 0) ? 0 : interval * 1000;
+}
+
+CallRecord *getLogRootInfo(uint32_t *depth) {
+    *depth = _curLogCount;
+    return _logRoot;
+}
+
+void stopRecordAndCleanLogMemory() {
+    _isRecording = false;
+    _curLogCount = 0;
+    _curRecordCount = 0;
+    _recordAllocCount = 100;
+    _logAllocCount = 100;
+    
+    if (_recordRoot) {
+        free(_recordRoot);
+        _recordRoot = NULL;
+        
+    }
+    if (_logRoot) {
+        free(_logRoot);
+        _logRoot = NULL;
+    }
 }
 
 #else
 void startMethodTrace() {}
 void stopMethodTrace() {}
-void setMaxDepth(int depth) {}
-void setRecordMinInterval(int interval){}
+void setMaxDepth(uint32_t depth) {}
+void setRecordMinInterval(uint32_t interval){}
+
+CallRecord *getLogRootInfo(uint32_t *depth) {
+    *depth = 0;
+    return NULL;
+}
+CallRecord *getLogRootInfoAndCleanMemory(uint32_t *depth) {
+    *depth = 0;
+    return NULL;
+}
 #endif

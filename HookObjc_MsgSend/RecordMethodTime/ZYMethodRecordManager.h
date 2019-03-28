@@ -10,4 +10,17 @@
 
 @interface ZYMethodRecordManager : NSObject
 + (instancetype)sharedManager;
+
+- (void)startRecord;
+/**
+ @param maxDepth 最深的方法层级
+ @param cost 最少的耗时ms
+ */
+- (void)startRecord:(NSUInteger)maxDepth minTimeCost:(NSUInteger)cost;
+
+- (void)stop;
+
+- (void)save;
+
+- (void)stopSaveAndClean;
 @end
