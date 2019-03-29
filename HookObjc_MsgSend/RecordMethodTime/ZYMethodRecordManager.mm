@@ -10,7 +10,6 @@
 #import "ZYMethodTraceCore.hpp"
 #import "ZYMethodRecordModel.h"
 #import <objc/runtime.h>
-#import "SMCallTraceCore.h"
 
 @interface ZYMethodRecordManager()
 {
@@ -42,7 +41,6 @@
     setMaxDepth((uint32_t)_maxDepth);
     setRecordMinInterval((uint32_t)_minCost);
     startMethodTrace();
-//    smCallTraceStart();
 }
 
 - (void)startRecord:(NSUInteger)maxDepth minTimeCost:(NSUInteger)cost {

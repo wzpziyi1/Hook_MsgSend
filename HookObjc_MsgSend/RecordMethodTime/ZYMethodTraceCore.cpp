@@ -16,7 +16,7 @@
 #import <objc/runtime.h>
 
 typedef struct {
-    intptr_t *lr;
+    uintptr_t *lr;
     uint32_t index;
     uint32_t lrAllocCount;
 }lr_ptr_record;
@@ -49,9 +49,9 @@ static inline lr_ptr_record *get_lr_ptr_record() {
     lr_ptr_record *lrRecord = (lr_ptr_record *)pthread_getspecific(_pthread_key);
     if (lrRecord == NULL) {
         lrRecord = (lr_ptr_record *)malloc(sizeof(lr_ptr_record));
-        lrRecord->lrAllocCount = 100;
+        lrRecord->lrAllocCount = 128;
         lrRecord->index = 0;
-        lrRecord->lr = (intptr_t *)calloc(lrRecord->lrAllocCount, sizeof(intptr_t));
+        lrRecord->lr = (uintptr_t *)calloc(lrRecord->lrAllocCount, sizeof(uintptr_t));
         pthread_setspecific(_pthread_key, lrRecord);
     }
     return lrRecord;
@@ -64,111 +64,77 @@ static inline uint32_t get_current_time() {
     return (now.tv_sec % 100) * 1000000 + now.tv_usec;
 }
 
-static inline void push_call_record(id obj, SEL cmd, uint32_t lr) {
-//    if (pthread_main_np()) {
-//        if (_recordRoot == NULL) {
-//            _recordAllocCount = 100;
-//            _curRecordCount = 0;
-//            _recordRoot = (CallRecord *)malloc(sizeof(CallRecord) * _recordAllocCount);
-//        }
-//        else if (_curRecordCount >= _recordAllocCount) {
-//            _recordAllocCount += 100;
-//            _recordRoot = (CallRecord *)realloc((void *)_recordRoot, _recordAllocCount * sizeof(CallRecord));
-//        }
-//        CallRecord *curNode = &_recordRoot[_curRecordCount];
-//        curNode->cls = object_getClass(obj);
-//        curNode->cmd = cmd;
-//        curNode->index = _curRecordCount++;
-//        curNode->time = get_current_time();
-//    }
+static inline void push_call_record(id obj, SEL cmd, uintptr_t lr) {
+    if (pthread_main_np()) {
+        if (_recordRoot == NULL) {
+            _recordAllocCount = 100;
+            _curRecordCount = 0;
+            _recordRoot = (CallRecord *)malloc(sizeof(CallRecord) * _recordAllocCount);
+        }
+        else if (_curRecordCount >= _recordAllocCount) {
+            _recordAllocCount += 100;
+            _recordRoot = (CallRecord *)realloc((void *)_recordRoot, _recordAllocCount * sizeof(CallRecord));
+        }
+        CallRecord *curNode = &_recordRoot[_curRecordCount];
+        curNode->cls = object_getClass(obj);
+        curNode->cmd = cmd;
+        curNode->index = _curRecordCount++;
+        curNode->time = get_current_time();
+    }
     lr_ptr_record *lrRecord = get_lr_ptr_record();
     if (lrRecord) {
-        if (lrRecord->index - 1 >= lrRecord->lrAllocCount) {
+        if (lrRecord->index >= lrRecord->lrAllocCount - 1) {
             lrRecord->lrAllocCount += 100;
-            lrRecord->lr = (intptr_t *)realloc(lrRecord->lr, sizeof(intptr_t) * lrRecord->lrAllocCount);
+            lrRecord->lr = (uintptr_t *)realloc(lrRecord->lr, sizeof(uintptr_t) * lrRecord->lrAllocCount);
         }
         uint32_t index = lrRecord->index;
         lrRecord->index++;
         lrRecord->lr[index] = lr;
-        printf("%u----%u", lr, lrRecord->lr[index]);
     }
 }
 
-static inline intptr_t pop_call_record() {
-//    if (pthread_main_np() && _curRecordCount != 0) {
-//        _curRecordCount--;
-//        CallRecord *preNode = (CallRecord *)&_recordRoot[_curRecordCount];
-//        if (_isRecording && preNode->index <= _maxCallDepth) {
-//            uint32_t nowUsec = get_current_time();
-//            if (nowUsec < preNode->time) {
-//                nowUsec += 100 * 1000000;
-//            }
-//            //转成毫秒
-//            preNode->time = (nowUsec - preNode->time) / 1000;
-//            if (preNode->time > _minTimeCost) {
-//                if (_logRoot == NULL) {
-//                    _logAllocCount = 100;
-//                    _curLogCount = 0;
-//                    _logRoot = (CallRecord *)malloc(sizeof(CallRecord) * _logAllocCount);
-//                }
-//                else if (_logAllocCount <= _curLogCount) {
-//                    _logAllocCount += 100;
-//                    _logRoot = (CallRecord *)realloc(_logRoot, _logAllocCount * sizeof(CallRecord));
-//                }
-//                CallRecord *logNode = (CallRecord *)&_logRoot[_curLogCount++];
-//                logNode->cls = preNode->cls;
-//                logNode->cmd = preNode->cmd;
-//                logNode->index = preNode->index;
-//                logNode->time = preNode->time;
-//            }
-//        }
-//    }
+static inline uintptr_t pop_call_record() {
+    if (pthread_main_np() && _curRecordCount != 0) {
+        _curRecordCount--;
+        CallRecord *preNode = (CallRecord *)&_recordRoot[_curRecordCount];
+        if (_isRecording && preNode->index <= _maxCallDepth) {
+            uint32_t nowUsec = get_current_time();
+            if (nowUsec < preNode->time) {
+                nowUsec += 100 * 1000000;
+            }
+            //转成毫秒
+            preNode->time = (nowUsec - preNode->time) / 1000;
+            if (preNode->time > _minTimeCost) {
+                if (_logRoot == NULL) {
+                    _logAllocCount = 100;
+                    _curLogCount = 0;
+                    _logRoot = (CallRecord *)malloc(sizeof(CallRecord) * _logAllocCount);
+                }
+                else if (_logAllocCount <= _curLogCount) {
+                    _logAllocCount += 100;
+                    _logRoot = (CallRecord *)realloc(_logRoot, _logAllocCount * sizeof(CallRecord));
+                }
+                CallRecord *logNode = (CallRecord *)&_logRoot[_curLogCount++];
+                logNode->cls = preNode->cls;
+                logNode->cmd = preNode->cmd;
+                logNode->index = preNode->index;
+                logNode->time = preNode->time;
+            }
+        }
+    }
     lr_ptr_record *lrRecord = get_lr_ptr_record();
     lrRecord->index--;
-    printf("%u",lrRecord->index);
     uint32_t index = lrRecord->index;
     return lrRecord->lr[index];
 }
 
-void before_hook_objc_msgSend(id obj, SEL cmd, uint32_t lr) {
+void before_hook_objc_msgSend(id obj, SEL cmd, uintptr_t lr) {
     push_call_record(obj, cmd, lr);
 }
 
-intptr_t after_hook_objc_msgSend() {
+uintptr_t after_hook_objc_msgSend() {
     return pop_call_record();
 }
-
-//#define call(b, value) \
-//__asm volatile ("stp x8, x9, [sp, #-16]!\n"); \
-//__asm volatile ("mov x12, %0\n" :: "r"(value)); \
-//__asm volatile ("ldp x8, x9, [sp], #16\n"); \
-//__asm volatile (#b " x12\n");
-//
-//#define save() \
-//__asm volatile ( \
-//"stp q6, q7, [sp, #-32]!\n" \
-//"stp q4, q5, [sp, #-32]!\n" \
-//"stp q2, q3, [sp, #-32]!\n" \
-//"stp q0, q1, [sp, #-32]!\n" \
-//"stp x8, x9, [sp, #-16]!\n" \
-//"stp x6, x7, [sp, #-16]!\n" \
-//"stp x4, x5, [sp, #-16]!\n" \
-//"stp x2, x3, [sp, #-16]!\n" \
-//"stp x0, x1, [sp, #-16]!\n" \
-//);
-//
-//#define load() \
-//__asm volatile ( \
-//"ldp x0, x1, [sp], #16\n" \
-//"ldp x2, x3, [sp], #16\n" \
-//"ldp x4, x5, [sp], #16\n" \
-//"ldp x6, x7, [sp], #16\n" \
-//"ldp x8, x9, [sp], #16\n" \
-//"ldp q0, q1, [sp], #32\n" \
-//"ldp q2, q3, [sp], #32\n" \
-//"ldp q4, q5, [sp], #32\n" \
-//"ldp q6, q7, [sp], #32\n" \
-//);
 
 #define call(b, value) \
 __asm volatile ("stp x8, x9, [sp, #-16]!\n"); \
@@ -178,11 +144,16 @@ __asm volatile (#b " x12\n");
 
 #define save() \
 __asm volatile ( \
+"stp q6, q7, [sp, #-32]!\n" \
+"stp q4, q5, [sp, #-32]!\n" \
+"stp q2, q3, [sp, #-32]!\n" \
+"stp q0, q1, [sp, #-32]!\n" \
 "stp x8, x9, [sp, #-16]!\n" \
 "stp x6, x7, [sp, #-16]!\n" \
 "stp x4, x5, [sp, #-16]!\n" \
 "stp x2, x3, [sp, #-16]!\n" \
-"stp x0, x1, [sp, #-16]!\n");
+"stp x0, x1, [sp, #-16]!\n" \
+);
 
 #define load() \
 __asm volatile ( \
@@ -190,7 +161,12 @@ __asm volatile ( \
 "ldp x2, x3, [sp], #16\n" \
 "ldp x4, x5, [sp], #16\n" \
 "ldp x6, x7, [sp], #16\n" \
-"ldp x8, x9, [sp], #16\n" );
+"ldp x8, x9, [sp], #16\n" \
+"ldp q0, q1, [sp], #32\n" \
+"ldp q2, q3, [sp], #32\n" \
+"ldp q4, q5, [sp], #32\n" \
+"ldp q6, q7, [sp], #32\n" \
+);
 
 #define link(b, value) \
 __asm volatile ("stp x8, lr, [sp, #-16]!\n"); \
