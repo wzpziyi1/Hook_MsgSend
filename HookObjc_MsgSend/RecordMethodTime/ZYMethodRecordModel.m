@@ -9,7 +9,26 @@
 #import "ZYMethodRecordModel.h"
 
 @implementation ZYMethodRecordModel
-- (void)descInfo {
-//    NSLog(@"")
+
+- (NSString *)descInfo {
+    NSMutableString *info = [NSMutableString string];
+    int callDepth = (int)self.callDepth;
+    do {
+        [info appendString:@"**"];
+        callDepth--;
+    } while (callDepth >= 0);
+    
+    if (self.isClassMethod) {
+        [info appendString:@"+"];
+    }
+    else {
+        [info appendString:@"-"];
+    }
+    if (self.className.length && self.methodName.length) {
+        [info appendFormat:@"[%@ %@]",self.className, self.methodName];
+    }
+    
+    [info appendFormat:@"  CostTime: %ld ms\n", self.timeCost];
+    return info;
 }
 @end

@@ -18,5 +18,5 @@
 
 @property (nonatomic, strong) NSMutableArray<ZYMethodRecordModel *> *subRecordModelArr;
 
-- (void)descInfo;
+- (NSString *)descInfo;
 @end

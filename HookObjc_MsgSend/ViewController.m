@@ -25,11 +25,21 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-//    [[ZYMethodRecordManager sharedManager] save];
-//    [[ZYMethodRecordManager sharedManager] stop];
+    [[ZYMethodRecordManager sharedManager] save];
+    [[ZYMethodRecordManager sharedManager] stop];
 }
 
 - (void)test {
+    for (int i = 0; i <= 3000000; i++) {
+        @autoreleasepool {
+            NSString *tmp = [[NSString alloc] init];
+            tmp = @"111111";
+        }
+    }
+    [self dosomething];
+}
+
+- (void)dosomething {
     for (int i = 0; i <= 3000000; i++) {
         @autoreleasepool {
             NSString *tmp = [[NSString alloc] init];

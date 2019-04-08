@@ -104,7 +104,7 @@ static inline uintptr_t pop_call_record() {
             }
             //转成毫秒
             preNode->time = (nowUsec - preNode->time) / 1000;
-            if (preNode->time > _minTimeCost) {
+            if (preNode->time >= _minTimeCost) {
                 if (_logRoot == NULL) {
                     _logAllocCount = 100;
                     _curLogCount = 0;
@@ -252,7 +252,7 @@ void setMaxDepth(uint32_t depth) {
     _maxCallDepth = (depth <= 0) ? 0 : depth;
 }
 void setRecordMinInterval(uint32_t interval) {
-    _minTimeCost = (interval * 1000 <= 0) ? 0 : interval * 1000;
+    _minTimeCost = interval;
 }
 
 CallRecord *getLogRootInfo(uint32_t *depth) {

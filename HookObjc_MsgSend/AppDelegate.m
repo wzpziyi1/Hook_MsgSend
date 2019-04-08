@@ -17,8 +17,12 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [[ZYMethodRecordManager sharedManager] startRecord:3 minTimeCost:0];
     // Override point for customization after application launch.
+    for (int i = 0; i <= 40000000; i++) {
+        @autoreleasepool {
+            NSString *pp = [NSString new];
+        }
+    }
     return YES;
 }
 
