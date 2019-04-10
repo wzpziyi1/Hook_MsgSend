@@ -8,12 +8,12 @@
 
 #include "ZYMethodTraceCore.hpp"
 #ifdef __aarch64__
-
 #import "fishhook.h"
 #include <dispatch/dispatch.h>
 #include <pthread.h>
 #include <sys/time.h>
 #import <objc/runtime.h>
+
 
 typedef struct {
     uintptr_t *lr;
@@ -49,7 +49,7 @@ static inline lr_ptr_record *get_lr_ptr_record() {
     lr_ptr_record *lrRecord = (lr_ptr_record *)pthread_getspecific(_pthread_key);
     if (lrRecord == NULL) {
         lrRecord = (lr_ptr_record *)malloc(sizeof(lr_ptr_record));
-        lrRecord->lrAllocCount = 128;
+        lrRecord->lrAllocCount = 100;
         lrRecord->index = 0;
         lrRecord->lr = (uintptr_t *)calloc(lrRecord->lrAllocCount, sizeof(uintptr_t));
         pthread_setspecific(_pthread_key, lrRecord);

@@ -19,6 +19,7 @@
 		093C8DA5224A06270089D0CF /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DA3224A06270089D0CF /* fishhook.c */; };
 		093C8DB4224B7D6E0089D0CF /* ZYMethodRecordManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB2224B7D6D0089D0CF /* ZYMethodRecordManager.mm */; };
 		093C8DB7224B7EA30089D0CF /* ZYMethodRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */; };
+		09C75645225B673100FE3DA7 /* ZYMethodStackStore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09C75644225B673100FE3DA7 /* ZYMethodStackStore.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		093C8DB3224B7D6E0089D0CF /* ZYMethodRecordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZYMethodRecordManager.h; sourceTree = "<group>"; };
 		093C8DB5224B7EA30089D0CF /* ZYMethodRecordModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMethodRecordModel.h; sourceTree = "<group>"; };
 		093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZYMethodRecordModel.m; sourceTree = "<group>"; };
+		09C75643225B673100FE3DA7 /* ZYMethodStackStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZYMethodStackStore.h; sourceTree = "<group>"; };
+		09C75644225B673100FE3DA7 /* ZYMethodStackStore.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ZYMethodStackStore.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +159,8 @@
 				093C8DB6224B7EA30089D0CF /* ZYMethodRecordModel.m */,
 				0936DF6A224CBDD4002B38DA /* ZYMethodTraceCore.hpp */,
 				0936DF69224CBDD4002B38DA /* ZYMethodTraceCore.cpp */,
+				09C75643225B673100FE3DA7 /* ZYMethodStackStore.h */,
+				09C75644225B673100FE3DA7 /* ZYMethodStackStore.mm */,
 			);
 			path = RecordMethodTime;
 			sourceTree = "<group>";
@@ -296,6 +301,7 @@
 				0936DF6B224CBDD4002B38DA /* ZYMethodTraceCore.cpp in Sources */,
 				093C8D75224A05AB0089D0CF /* ViewController.m in Sources */,
 				093C8D80224A05AC0089D0CF /* main.m in Sources */,
+				09C75645225B673100FE3DA7 /* ZYMethodStackStore.mm in Sources */,
 				093C8DA5224A06270089D0CF /* fishhook.c in Sources */,
 				093C8D72224A05AB0089D0CF /* AppDelegate.m in Sources */,
 			);

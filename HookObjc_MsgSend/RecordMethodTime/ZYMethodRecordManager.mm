@@ -9,7 +9,10 @@
 #import "ZYMethodRecordManager.h"
 #import "ZYMethodTraceCore.hpp"
 #import "ZYMethodRecordModel.h"
+#import "ZYMethodStackStore.h"
 #import <objc/runtime.h>
+
+static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"method_record_log.txt"];
 
 @interface ZYMethodRecordManager()
 {
@@ -21,7 +24,7 @@
 @implementation ZYMethodRecordManager
 
 + (void)load {
-    [[ZYMethodRecordManager sharedManager] startRecord:3 minTimeCost:10];
+//    [[ZYMethodRecordManager sharedManager] startRecord:3 minTimeCost:10];
 }
 
 + (instancetype)sharedManager {
@@ -72,7 +75,7 @@
             model.isClassMethod = class_isMetaClass(record->cls);
             model.callDepth = (NSUInteger)record->index;
             model.timeCost = (NSUInteger)record->time;
-            NSLog(@"%@", [model descInfo]);
+            ProcessFile([kLogPath UTF8String], [[model descInfo] UTF8String])
         }
     }
 }

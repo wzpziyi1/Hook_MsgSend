@@ -28,7 +28,7 @@
         [info appendFormat:@"[%@ %@]",self.className, self.methodName];
     }
     
-    [info appendFormat:@"  CostTime: %ld ms\n", self.timeCost];
+    [info appendFormat:@"  Cost: %ld ms\n", self.timeCost];
     return info;
 }
 @end
