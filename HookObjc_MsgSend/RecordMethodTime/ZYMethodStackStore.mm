@@ -7,7 +7,7 @@
 //
 
 #include "ZYMethodStackStore.h"
-int ProcessFile( char * inPathName , char * string)
+int ProcessFile(char const * inPathName, char const * string)
 {
     size_t originLength;  // 原数据字节数
     size_t dataLength;    // 数据字节数

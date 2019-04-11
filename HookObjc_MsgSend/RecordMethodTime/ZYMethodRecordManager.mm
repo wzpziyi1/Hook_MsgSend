@@ -24,7 +24,7 @@ static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCache
 @implementation ZYMethodRecordManager
 
 + (void)load {
-//    [[ZYMethodRecordManager sharedManager] startRecord:3 minTimeCost:10];
+    [[ZYMethodRecordManager sharedManager] startRecord:5 minTimeCost:1];
 }
 
 + (instancetype)sharedManager {
@@ -75,7 +75,7 @@ static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCache
             model.isClassMethod = class_isMetaClass(record->cls);
             model.callDepth = (NSUInteger)record->index;
             model.timeCost = (NSUInteger)record->time;
-            ProcessFile([kLogPath UTF8String], [[model descInfo] UTF8String])
+            ProcessFile([kLogPath UTF8String], [[model descInfo] UTF8String]);
         }
     }
 }
