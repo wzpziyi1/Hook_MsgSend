@@ -12,7 +12,7 @@
 #import "ZYMethodStackStore.h"
 #import <objc/runtime.h>
 
-static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"method_record_log.txt"];
+static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] stringByAppendingPathComponent:@"method_record_log.txt"];
 
 @interface ZYMethodRecordManager()
 {
@@ -45,9 +45,11 @@ static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCache
 }
 
 - (void)startRecord {
-    setMaxDepth((uint32_t)_maxDepth);
-    setRecordMinInterval((uint32_t)_minCost);
-    startMethodTrace();
+    dispatch_async_safe_main(^{
+        setMaxDepth((uint32_t)self->_maxDepth);
+        setRecordMinInterval((uint32_t)self->_minCost);
+        startMethodTrace();
+    });
 }
 
 - (void)startRecord:(NSUInteger)maxDepth minTimeCost:(NSUInteger)cost {
@@ -57,30 +59,52 @@ static NSString * const kLogPath = [[NSSearchPathForDirectoriesInDomains(NSCache
 }
 
 - (void)stop {
-    stopMethodTrace();
+    dispatch_async_safe_main(^{
+        stopMethodTrace();
+    });
 }
 
 - (void)save {
-    uint32_t depth = 0;
-    CallRecord *logHeader = getLogRootInfo(&depth);
-    if (logHeader == NULL) {
-        return;
-    }
-    ZYMethodRecordModel *model = [[ZYMethodRecordModel alloc] init];
-    for (int i = depth - 1; i >= 0; i--) {
-        @autoreleasepool {
-            CallRecord *record = &logHeader[i];
-            model.className = NSStringFromClass(record->cls);
-            model.methodName = NSStringFromSelector(record->cmd);
-            model.isClassMethod = class_isMetaClass(record->cls);
-            model.callDepth = (NSUInteger)record->index;
-            model.timeCost = (NSUInteger)record->time;
-            ProcessFile([kLogPath UTF8String], [[model descInfo] UTF8String]);
+    dispatch_async_safe_main(^{
+        if (![[NSFileManager defaultManager] fileExistsAtPath:kLogPath]) {
+            [[NSFileManager defaultManager] createFileAtPath:kLogPath contents:nil attributes:nil];
         }
-    }
+        uint32_t depth = 0;
+        CallRecord *logHeader = getLogRootInfo(&depth);
+        if (logHeader == NULL) {
+            return;
+        }
+        ZYMethodRecordModel *model = [[ZYMethodRecordModel alloc] init];
+        for (int i = depth - 1; i >= 0; i--) {
+            @autoreleasepool {
+                CallRecord *record = &logHeader[i];
+                model.className = NSStringFromClass(record->cls);
+                model.methodName = NSStringFromSelector(record->cmd);
+                model.isClassMethod = class_isMetaClass(record->cls);
+                model.callDepth = (NSUInteger)record->index;
+                model.timeCost = (NSUInteger)record->time;
+                ProcessFile([kLogPath UTF8String], [[model descInfo] UTF8String]);
+//                NSLog(@"------------------------------------------------------------");
+//                NSLog(@"%@", [model descInfo]);
+            }
+        }
+    });
 }
 
 - (void)stopRecordAndClean {
-    stopRecordAndCleanLogMemory();
+    dispatch_async_safe_main(^{
+        stopRecordAndCleanLogMemory();
+    });
+}
+
+
+static inline void dispatch_async_safe_main(void(^block)(void)) {
+    assert(block != nil);
+    if ([NSThread isMainThread]) {
+        block();
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), block);
+    }
 }
 @end

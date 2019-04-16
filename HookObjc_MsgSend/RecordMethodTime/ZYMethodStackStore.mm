@@ -19,7 +19,7 @@ int ProcessFile(char const * inPathName, char const * string)
     
     // 打开文件
     // Open the file.
-    fd = open( inPathName, O_RDWR | O_CREAT, 0 );
+    fd = open( inPathName, O_RDWR, 0 );
     
     if( fd < 0 )
     {

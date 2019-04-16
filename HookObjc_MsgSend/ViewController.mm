@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <objc/objc.h>
 #import "ZYMethodRecordManager.h"
+#import "ZYMethodStackStore.h"
 
 @interface ViewController ()
 
@@ -19,7 +20,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
+//    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"111.txt"];
+//    ProcessFile([path UTF8String], "11111111");
     [self test];
 }
 

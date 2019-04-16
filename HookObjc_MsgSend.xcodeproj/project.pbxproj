@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0936DF6B224CBDD4002B38DA /* ZYMethodTraceCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0936DF69224CBDD4002B38DA /* ZYMethodTraceCore.cpp */; };
 		093C8D72224A05AB0089D0CF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D71224A05AB0089D0CF /* AppDelegate.m */; };
-		093C8D75224A05AB0089D0CF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D74224A05AB0089D0CF /* ViewController.m */; };
+		093C8D75224A05AB0089D0CF /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 093C8D74224A05AB0089D0CF /* ViewController.mm */; };
 		093C8D78224A05AB0089D0CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 093C8D76224A05AB0089D0CF /* Main.storyboard */; };
 		093C8D7A224A05AC0089D0CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 093C8D79224A05AC0089D0CF /* Assets.xcassets */; };
 		093C8D7D224A05AC0089D0CF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 093C8D7B224A05AC0089D0CF /* LaunchScreen.storyboard */; };
@@ -46,7 +46,7 @@
 		093C8D70224A05AB0089D0CF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		093C8D71224A05AB0089D0CF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		093C8D73224A05AB0089D0CF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		093C8D74224A05AB0089D0CF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		093C8D74224A05AB0089D0CF /* ViewController.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ViewController.mm; sourceTree = "<group>"; };
 		093C8D77224A05AB0089D0CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		093C8D79224A05AC0089D0CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		093C8D7C224A05AC0089D0CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -120,7 +120,7 @@
 				093C8D70224A05AB0089D0CF /* AppDelegate.h */,
 				093C8D71224A05AB0089D0CF /* AppDelegate.m */,
 				093C8D73224A05AB0089D0CF /* ViewController.h */,
-				093C8D74224A05AB0089D0CF /* ViewController.m */,
+				093C8D74224A05AB0089D0CF /* ViewController.mm */,
 				093C8D76224A05AB0089D0CF /* Main.storyboard */,
 				093C8D79224A05AC0089D0CF /* Assets.xcassets */,
 				093C8D7B224A05AC0089D0CF /* LaunchScreen.storyboard */,
@@ -299,7 +299,7 @@
 				093C8DB4224B7D6E0089D0CF /* ZYMethodRecordManager.mm in Sources */,
 				093C8DB7224B7EA30089D0CF /* ZYMethodRecordModel.m in Sources */,
 				0936DF6B224CBDD4002B38DA /* ZYMethodTraceCore.cpp in Sources */,
-				093C8D75224A05AB0089D0CF /* ViewController.m in Sources */,
+				093C8D75224A05AB0089D0CF /* ViewController.mm in Sources */,
 				093C8D80224A05AC0089D0CF /* main.m in Sources */,
 				09C75645225B673100FE3DA7 /* ZYMethodStackStore.mm in Sources */,
 				093C8DA5224A06270089D0CF /* fishhook.c in Sources */,
