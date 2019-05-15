@@ -7,6 +7,49 @@
 //
 
 #include "ZYMethodStackStore.h"
+
+// 映射文件到内存
+// Exit:    fd              代表文件
+//          outDataPtr      映射出的文件内容
+//          mapSize         映射的size
+//          return value    an errno value on error (see sys/errno.h)
+//                          or zero for success
+//
+int MapFile( int fd, void ** outDataPtr, size_t mapSize , struct stat * stat)
+{
+    int outError;         // 错误信息
+    struct stat statInfo; // 文件状态
+    
+    statInfo = * stat;
+    
+    // Return safe values on error.
+    outError = 0;
+    *outDataPtr = NULL;
+    
+    *outDataPtr = mmap(NULL,
+                       mapSize,
+                       PROT_READ|PROT_WRITE,
+                       MAP_FILE|MAP_SHARED,
+                       fd,
+                       0);
+    
+    // * outDataPtr 文本内容
+    
+    //        NSLog(@"映射出的文本内容：%s", * outDataPtr);
+    if( *outDataPtr == MAP_FAILED )
+    {
+        outError = errno;
+    }
+    else
+    {
+        // 调整文件的大小
+        ftruncate(fd, mapSize);
+        fsync(fd);//刷新文件
+    }
+    
+    return outError;
+}
+
 int ProcessFile(char const * inPathName, char const * string)
 {
     size_t originLength;  // 原数据字节数
@@ -60,46 +103,4 @@ int ProcessFile(char const * inPathName, char const * string)
     }
     close(fd);
     return 0;
-}
-// MapFile
-
-// Exit:    fd              代表文件
-//          outDataPtr      映射出的文件内容
-//          mapSize         映射的size
-//          return value    an errno value on error (see sys/errno.h)
-//                          or zero for success
-//
-int MapFile( int fd, void ** outDataPtr, size_t mapSize , struct stat * stat)
-{
-    int outError;         // 错误信息
-    struct stat statInfo; // 文件状态
-    
-    statInfo = * stat;
-    
-    // Return safe values on error.
-    outError = 0;
-    *outDataPtr = NULL;
-    
-    *outDataPtr = mmap(NULL,
-                       mapSize,
-                       PROT_READ|PROT_WRITE,
-                       MAP_FILE|MAP_SHARED,
-                       fd,
-                       0);
-    
-    // * outDataPtr 文本内容
-    
-    //        NSLog(@"映射出的文本内容：%s", * outDataPtr);
-    if( *outDataPtr == MAP_FAILED )
-    {
-        outError = errno;
-    }
-    else
-    {
-        // 调整文件的大小
-        ftruncate(fd, mapSize);
-        fsync(fd);//刷新文件
-    }
-    
-    return outError;
 }

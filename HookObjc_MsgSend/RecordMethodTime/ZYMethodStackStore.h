@@ -28,11 +28,6 @@ extern "C" {
  执行文件
  */
 int ProcessFile(char const * inPathName, char const * string);
-    
-/**
- 映射文件到内存
- */
-int MapFile(int fd , void ** outDataPtr, size_t mapSize, struct stat * stat);
 
 #ifdef __cplusplus
 }
