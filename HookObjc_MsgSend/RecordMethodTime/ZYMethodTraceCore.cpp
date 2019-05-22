@@ -287,5 +287,5 @@ CallRecord *getLogRootInfo(uint32_t *depth) {
     *depth = 0;
     return NULL;
 }
-void stopRecordAndCleanLogMemory();
+void stopRecordAndCleanLogMemory() {}
 #endif
